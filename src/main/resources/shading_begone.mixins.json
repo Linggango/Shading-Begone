@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "shading_begone.refmap.json",
   "mixins": [
-    "BedrockBlockShadingMixin",
     "CloudRendererMixin",
     "FluidRendererMixin",
     "IrisConfigMixin"
