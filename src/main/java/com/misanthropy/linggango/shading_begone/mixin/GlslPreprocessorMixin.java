@@ -26,9 +26,7 @@ public class GlslPreprocessorMixin {
         String source = original.call(instance, quotesUsed, file);
 
         if (source != null && !ShadingConfig.INSTANCE.entityShadingEnabled && !quotesUsed && "light.glsl".equals(file)) {
-
             String search = "vec4 minecraft_mix_light(vec3 lightDir0, vec3 lightDir1, vec3 normal, vec4 color) {";
-
             String replacement = """
                 #define minecraft_mix_light(lightDir0, lightDir1, normal, color) (ProjMat[3].x != -1.0 ? color : minecraft_mix_light_helper(lightDir0, lightDir1, normal, color))
                 vec4 minecraft_mix_light_helper(vec3 lightDir0, vec3 lightDir1, vec3 normal, vec4 color) {

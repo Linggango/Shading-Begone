@@ -3,6 +3,8 @@ package com.misanthropy.linggango.shading_begone;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraftforge.fml.loading.FMLPaths;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.Reader;
 import java.io.Writer;
@@ -10,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class ShadingConfig {
+    private static final Logger LOGGER = LogManager.getLogger(ShadingConfig.class);
     private static final Path CONFIG_PATH = FMLPaths.CONFIGDIR.get().resolve("shading_begone.json");
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     public boolean blockShadingEnabled = false;
@@ -42,7 +45,7 @@ public class ShadingConfig {
             }
             INSTANCE.updateEffectiveStates();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Failed to load shading_begone config", e);
         }
     }
 
@@ -52,7 +55,7 @@ public class ShadingConfig {
         try (Writer writer = Files.newBufferedWriter(CONFIG_PATH)) {
             GSON.toJson(INSTANCE, writer);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Failed to save shading_begone config", e);
         }
     }
 }
